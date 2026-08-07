@@ -1,0 +1,71 @@
+
+/* Basic Reset */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* Basic Flex Container */
+
+.container {
+    background-color: red;
+
+    display: flex;
+
+    padding: 12px;
+
+    gap: 15px;
+}
+
+
+/* Flex Items */
+
+.box {
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-one {
+    background-color: blue;
+    color: white;
+}
+
+.box-two {
+    background-color: yellow;
+}
+
+.box-three {
+    background-color: green;
+    color: white;
+}
+
+/* Flexbox with Content */
+
+.content-container {
+    background-color: lightgray;
+
+    display: flex;
+
+    gap: 15px;
+
+    padding: 20px;
+}
+
+.content-box {
+    width: 100px;
+    height: 100px;
+
+    background-color: blue;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

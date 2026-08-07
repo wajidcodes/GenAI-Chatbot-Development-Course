@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HTML Videos</title>
+</head>
+
+<body>
+
+    <h1>HTML Videos</h1>
+
+    <p>
+        This page demonstrates different ways to embed videos in HTML using the
+        &lt;video&gt; element and its common attributes.
+    </p>
+
+    <hr>
+
+    <h2>1. Basic Video</h2>
+
+    <video width="500" controls>
+        <source src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <hr>
+
+    <h2>2. Autoplay and Muted</h2>
+
+    <video width="500" autoplay muted controls>
+        <source src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <p>
+        <strong>Note:</strong> Most browsers only allow autoplay when the video
+        is muted.
+    </p>
+
+    <hr>
+
+    <h2>3. Loop Video</h2>
+
+    <video width="500" controls loop>
+        <source src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <hr>
+
+    <h2>4. Poster Image</h2>
+
+    <video width="500" controls poster="images/poster.jpeg">
+        <source src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <p>
+        The poster image is displayed before the video starts playing.
+    </p>
+
+    <hr>
+
+    <h2>5. Width and Height</h2>
+
+    <video width="450" height="250" controls>
+        <source src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <hr>
+
+    <h2>6. Multiple Video Sources</h2>
+
+    <video width="500" controls>
+
+        <source src="videos/sample.mp4" type="video/mp4">
+
+        <source src="videos/sample.webm" type="video/webm">
+
+        Your browser does not support the video tag.
+
+    </video>
+
+    <p>
+        The browser automatically chooses the first supported video format.
+    </p>
+
+    <hr>
+
+    <h2>7. Complete Video Example</h2>
+
+    <video width="600" controls muted loop poster="images/poster.jpeg">
+
+        <source src="videos/sample.mp4" type="video/mp4">
+
+        Your browser does not support the video tag.
+
+    </video>
+
+    <hr>
+</body>
+
+</html>

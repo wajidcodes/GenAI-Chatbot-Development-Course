@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HTML Tables</title>
+</head>
+
+<body>
+
+    <h1>HTML Tables</h1>
+
+    <p>
+        This page demonstrates different ways of creating tables in HTML.
+    </p>
+
+    <hr>
+
+    <h2>1. Basic Table</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>Name</th>
+            <th>University</th>
+            <th>Semester</th>
+        </tr>
+
+        <tr>
+            <td>Wajid Ali</td>
+            <td>NUML</td>
+            <td>4th</td>
+        </tr>
+
+        <tr>
+            <td>Hamza Mustafa</td>
+            <td>NUML</td>
+            <td>4th</td>
+        </tr>
+
+        <tr>
+            <td>Hassan Mustafa</td>
+            <td>NUML</td>
+            <td>4th</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>2. Table with Cell Padding</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Course</th>
+            <th>Instructor</th>
+        </tr>
+
+        <tr>
+            <td>HTML</td>
+            <td>Sir ABC</td>
+        </tr>
+
+        <tr>
+            <td>CSS</td>
+            <td>Sir XYZ</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>3. Table with Cell Spacing</h2>
+
+    <table border="1" cellpadding="10" cellspacing="8">
+
+        <tr>
+            <th>Fruit</th>
+            <th>Color</th>
+        </tr>
+
+        <tr>
+            <td>Apple</td>
+            <td>Red</td>
+        </tr>
+
+        <tr>
+            <td>Banana</td>
+            <td>Yellow</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>4. Colspan Example</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th colspan="3">
+                Student Information
+            </th>
+        </tr>
+
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Semester</th>
+        </tr>
+
+        <tr>
+            <td>Wajid Ali</td>
+            <td>Computer Science</td>
+            <td>4th</td>
+        </tr>
+
+        <tr>
+            <td>Hamza Mustafa</td>
+            <td>Computer Science</td>
+            <td>4th</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>5. Rowspan Example</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Session</th>
+            <th>Student Name</th>
+        </tr>
+
+        <tr>
+            <td rowspan="3">Morning</td>
+            <td>Wajid Ali</td>
+        </tr>
+
+        <tr>
+            <td>Hamza Mustafa</td>
+        </tr>
+
+        <tr>
+            <td>Hassan Mustafa</td>
+        </tr>
+
+        <tr>
+            <td rowspan="2">Evening</td>
+            <td>Muhammad Abdullah</td>
+        </tr>
+
+        <tr>
+            <td>Umer</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>6. Combined Colspan and Rowspan</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th rowspan="2">Day</th>
+            <th colspan="2">Schedule</th>
+        </tr>
+
+        <tr>
+            <th>Morning</th>
+            <th>Evening</th>
+        </tr>
+
+        <tr>
+            <td>Monday</td>
+            <td>HTML</td>
+            <td>CSS</td>
+        </tr>
+
+        <tr>
+            <td>Tuesday</td>
+            <td>JavaScript</td>
+            <td>Python</td>
+        </tr>
+
+        <tr>
+            <td>Wednesday</td>
+            <td>Git & GitHub</td>
+            <td>Practice</td>
+        </tr>
+
+    </table>
+
+    <hr>
+
+    <h2>7. Class Timetable</h2>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Day</th>
+            <th>9:00 - 10:00</th>
+            <th>10:00 - 11:00</th>
+            <th>11:00 - 12:00</th>
+        </tr>
+
+        <tr>
+            <td>Monday</td>
+            <td>HTML</td>
+            <td>CSS</td>
+            <td>JavaScript</td>
+        </tr>
+
+        <tr>
+            <td>Tuesday</td>
+            <td>Python</td>
+            <td colspan="2">GenAI Workshop</td>
+        </tr>
+
+        <tr>
+            <td>Wednesday</td>
+            <td rowspan="2">Project Work</td>
+            <td>Git</td>
+            <td>GitHub</td>
+        </tr>
+
+        <tr>
+            <td>Thursday</td>
+            <td>Linux</td>
+            <td>Practice</td>
+        </tr>
+
+    </table>
+
+</body>
+
+</html>

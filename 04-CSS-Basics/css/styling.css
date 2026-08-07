@@ -1,0 +1,233 @@
+
+/* Basic Page Styling */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Navigation Bar */
+
+#navbar {
+    background-color: black;
+    color: white;
+
+    width: 100%;
+    min-height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+#navbar h3 {
+    margin: 0;
+}
+
+#navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+
+/* Main Content */
+
+main {
+    padding: 20px;
+}
+
+
+/* Text Styling */
+
+.text-example {
+    color: blue;
+    font-size: 20px;
+}
+
+.bold-text {
+    font-weight: 700;
+}
+
+.italic-text {
+    font-style: italic;
+}
+
+.underline-text {
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 3px;
+    text-decoration-style: dotted;
+}
+
+.spaced-text {
+    letter-spacing: 8px;
+}
+
+
+/* Text Alignment */
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+
+/* Borders */
+
+.solid-border,
+.dashed-border,
+.dotted-border,
+.double-border {
+    width: 200px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.solid-border {
+    border: 3px solid black;
+}
+
+.dashed-border {
+    border: 3px dashed black;
+}
+
+.dotted-border {
+    border: 3px dotted black;
+}
+
+.double-border {
+    border: 5px double black;
+}
+
+
+/* Border Radius */
+
+.rounded-box {
+    width: 200px;
+    padding: 20px;
+
+    background-color: aqua;
+
+    border: 2px solid black;
+    border-radius: 25px;
+}
+
+
+/* Padding */
+
+.padding-box {
+    background-color: lightgray;
+
+    width: 250px;
+
+    padding: 20px;
+
+    border: 2px solid black;
+}
+
+
+/* Input Styling */
+
+input {
+    border: 2px solid red;
+    border-radius: 15px;
+
+    padding: 5px 20px;
+
+    background-color: black;
+    color: white;
+}
+
+input::placeholder {
+    color: white;
+}
+
+
+/* Button Styling */
+
+button {
+    background-color: #ff7d00;
+
+    border: none;
+    border-radius: 35px;
+
+    color: white;
+
+    padding: 7.5px 30px;
+
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 600;
+
+    letter-spacing: 4px;
+
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
+    text-decoration-style: dotted;
+
+    cursor: pointer;
+}
+
+
+/* Box Styling */
+
+.box {
+    width: 150px;
+    height: 100px;
+
+    margin: 10px 0;
+}
+
+.box-red {
+    background-color: red;
+}
+
+.box-blue {
+    background-color: blue;
+}
+
+.box-green {
+    background-color: green;
+}
+
+/* Flexbox */
+
+.flex-container {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    border: 2px solid black;
+}
+
+.flex-box {
+    background-color: royalblue;
+
+    color: white;
+
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

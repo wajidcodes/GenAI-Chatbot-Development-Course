@@ -1,0 +1,126 @@
+/* Basic Reset */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+}
+
+
+/* Common Flex Container */
+
+.flex-container {
+    display: flex;
+
+    width: 100%;
+    min-height: 150px;
+
+    background-color: lightgray;
+
+    padding: 12px;
+}
+
+
+/* Flex Items */
+
+.item {
+    width: 80px;
+    height: 80px;
+
+    background-color: blue;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* justify-content */
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+
+/* align-items */
+
+.align-center {
+    align-items: center;
+}
+
+
+/* flex-direction */
+
+.direction-row {
+    flex-direction: row;
+}
+
+.direction-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.direction-column {
+    flex-direction: column;
+}
+
+
+/* gap */
+
+.gap-example {
+    gap: 20px;
+}
+
+
+/* flex-wrap */
+
+.wrap-example {
+    width: 300px;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+/* Combined Example */
+
+.combined-container {
+    background-color: red;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    padding: 20px;
+
+    min-height: 300px;
+}
+
+.combined-box {
+    width: 100px;
+    height: 100px;
+
+    background-color: blue;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

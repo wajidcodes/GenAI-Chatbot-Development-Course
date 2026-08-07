@@ -1,0 +1,63 @@
+
+/* Universal Selector */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Element Selector */
+
+div {
+    background-color: red;
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+}
+
+
+/* ID Selector */
+
+#box1 {
+    background-color: chocolate;
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+}
+
+#box2 {
+    background-color: purple;
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+}
+
+
+/* Class Selector */
+
+.box {
+    background-color: aqua;
+    width: 150px;
+    height: 80px;
+    margin: 10px;
+}
+
+
+/* Same Class on Different Elements */
+
+.highlight {
+    background-color: yellow;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+/* Practical Example */
+
+#container {
+    background-color: lightgray;
+    width: 550px;
+    height: 130px;
+    padding: 10px;
+}

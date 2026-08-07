@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Types</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/types.css">
+
+    <!-- Internal CSS -->
+    <style>
+        .internal-style {
+            color: green;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Types of CSS</h1>
+
+    <p>
+        CSS can be added to an HTML document in three different ways:
+        Inline CSS, Internal CSS, and External CSS.
+    </p>
+
+    <hr>
+
+    <!-- 1. Inline CSS -->
+
+    <h2>1. Inline CSS</h2>
+
+    <p style="color: red; font-size: 24px; font-weight: bold;">
+        This paragraph is styled using Inline CSS.
+    </p>
+
+    <p>
+        Inline CSS is written directly inside the
+        <strong>style</strong> attribute of an HTML element.
+    </p>
+
+    <hr>
+
+    <!-- 2. Internal CSS -->
+
+    <h2>2. Internal CSS</h2>
+
+    <p class="internal-style">
+        This paragraph is styled using Internal CSS.
+    </p>
+
+    <p>
+        Internal CSS is written inside the
+        <strong>&lt;style&gt;</strong> element in the
+        <strong>&lt;head&gt;</strong> section.
+    </p>
+
+    <hr>
+
+    <!-- 3. External CSS -->
+
+    <h2>3. External CSS</h2>
+
+    <p class="external-style">
+        This paragraph is styled using External CSS.
+    </p>
+
+    <p>
+        External CSS is written in a separate
+        <strong>.css</strong> file and connected to HTML
+        using the <strong>&lt;link&gt;</strong> element.
+    </p>
+
+    <hr>
+
+    <!-- Comparison -->
+
+    <h2>Comparison</h2>
+
+    <ul>
+        <li>
+            <strong>Inline CSS:</strong>
+            Written directly inside an HTML element.
+        </li>
+
+        <li>
+            <strong>Internal CSS:</strong>
+            Written inside the
+            <code>&lt;style&gt;</code> element.
+        </li>
+
+        <li>
+            <strong>External CSS:</strong>
+            Written in a separate CSS file.
+        </li>
+    </ul>
+
+</body>
+
+</html>
