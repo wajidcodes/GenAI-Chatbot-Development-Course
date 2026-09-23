@@ -11,6 +11,11 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 03      | HTML Tables, Images, Videos & Links | Completed |
 | 04      | CSS Basics                   | Completed |
 | 05      | CSS Flexbox                  | Completed |
+| 06      | Node.js, n8n & No-Code AI Automation | Completed |
+| 07      | n8n Automation Revision      | Completed |
+| 08      | n8n Email Attachment & Data Automation | Completed |
+| 09      | n8n Email Attachment & Data Automation Revision | Completed |
+| 10      | PostgreSQL Database Fundamentals | Completed |
 
 ## Repository Structure
 
@@ -46,6 +51,26 @@ GenAI-Chatbot-Development-Course/
 │   ├── css/
 │   ├── README.md
 │   └── notes.md
+├── 06-LLM-Chatbot-Automation/
+│   ├── installation.md
+│   ├── notes.md
+│   ├── screenshots/
+│   └── Process-Video/
+├── 07-n8n-Revision/
+│   └── notes.md
+├── 08-n8n-Email-Attachment-Automation/
+│   ├── notes.md
+│   ├── task.md
+│   ├── screenshots/
+│   └── video/
+├── 09-n8n-Email-Attachment-Revision/
+│   ├── README.md
+│   ├── notes.md
+│   └── task.md
+├── 10-PostgreSQL-Database-Fundamentals/
+│   ├── README.md
+│   ├── notes.md
+│   └── task.md
 ├── Projects/
 └── Resources/
 ```
@@ -59,17 +84,27 @@ GenAI-Chatbot-Development-Course/
 | [03-HTML-Elements](03-HTML-Elements/README.md) | Tables, images, videos, and links |
 | [04-CSS-Basics](04-CSS-Basics/README.md) | CSS types, selectors, and styling |
 | [05-CSS-Flexbox](05-CSS-Flexbox/README.md) | CSS Flexbox layout |
+| [06-LLM-Chatbot-Automation](06-LLM-Chatbot-Automation/notes.md) | Node.js, n8n, and no-code AI automation |
+| [07-n8n-Revision](07-n8n-Revision/notes.md) | Revision of n8n automation concepts |
+| [08-n8n-Email-Attachment-Automation](08-n8n-Email-Attachment-Automation/notes.md) | Email attachments, XLSX data, conditions, and automated emails |
+| [09-n8n-Email-Attachment-Revision](09-n8n-Email-Attachment-Revision/README.md) | Revision of attachment-based n8n automation |
+| [10-PostgreSQL-Database-Fundamentals](10-PostgreSQL-Database-Fundamentals/README.md) | Database fundamentals, PostgreSQL, Neon, and a To-Do list |
 
 ## Technologies Covered So Far
 
 - HTML
 - CSS
 - Git / GitHub
+- JavaScript / Node.js
+- n8n
+- LLM-based automation
+- PostgreSQL
+- Neon
 
 ## Learning Progress
 
-The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. These topics form part of the foundation needed before moving into chatbot and GenAI application development later in the course.
+The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, and PostgreSQL databases using Neon. These topics build the foundation for practical chatbot and GenAI applications.
 
 ## Future Topics
 
-Further topics will be added as the course progresses.
+Future lectures and projects will be added as the course progresses.
