@@ -16,6 +16,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 08      | n8n Email Attachment & Data Automation | Completed |
 | 09      | n8n Email Attachment & Data Automation Revision | Completed |
 | 10      | PostgreSQL Database Fundamentals | Completed |
+| 11      | Supabase, n8n & AI Expense Tracker | Completed |
 
 ## Repository Structure
 
@@ -71,6 +72,12 @@ GenAI-Chatbot-Development-Course/
 │   ├── README.md
 │   ├── notes.md
 │   └── task.md
+├── 11-Supabase-n8n-AI-Expense-Tracker/
+│   ├── README.md
+│   ├── notes.md
+│   ├── task.md
+│   ├── screenshots/
+│   └── workflows/
 ├── Projects/
 └── Resources/
 ```
@@ -89,6 +96,7 @@ GenAI-Chatbot-Development-Course/
 | [08-n8n-Email-Attachment-Automation](08-n8n-Email-Attachment-Automation/notes.md) | Email attachments, XLSX data, conditions, and automated emails |
 | [09-n8n-Email-Attachment-Revision](09-n8n-Email-Attachment-Revision/README.md) | Revision of attachment-based n8n automation |
 | [10-PostgreSQL-Database-Fundamentals](10-PostgreSQL-Database-Fundamentals/README.md) | Database fundamentals, PostgreSQL, Neon, and a To-Do list |
+| [11-Supabase-n8n-AI-Expense-Tracker](11-Supabase-n8n-AI-Expense-Tracker/README.md) | Supabase, AI-generated n8n workflows, and an email expense tracker |
 
 ## Technologies Covered So Far
 
@@ -100,10 +108,12 @@ GenAI-Chatbot-Development-Course/
 - LLM-based automation
 - PostgreSQL
 - Neon
+- Supabase
+- Groq
 
 ## Learning Progress
 
-The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, and PostgreSQL databases using Neon. These topics build the foundation for practical chatbot and GenAI applications.
+The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, and Supabase-based AI automation. These topics build the foundation for practical chatbot and GenAI applications.
 
 ## Future Topics
 

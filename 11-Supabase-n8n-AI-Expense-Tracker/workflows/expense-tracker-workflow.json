@@ -1,0 +1,295 @@
+{
+  "name": "Expense Tracker - Email to Supabase (Groq AI)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## STEP 1 — Trigger\nWatches Gmail for new emails.\nDefault filter: subject contains \"expense\".\nChange the filter (or point it at a Gmail label) if you want.\n\n⚙️ Needs: Gmail OAuth2 credential",
+        "height": 240,
+        "width": 300,
+        "color": 4
+      },
+      "id": "sticky-1",
+      "name": "Sticky Note - Trigger",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-1420, 40]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            { "mode": "everyMinute" }
+          ]
+        },
+        "simple": true,
+        "filters": {
+          "q": "subject:expense"
+        },
+        "options": {}
+      },
+      "id": "gmail-trigger-1",
+      "name": "Gmail Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [-1420, 320],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## STEP 2 — AI Extraction\nGroq LLM reads the Subject + Body and returns structured expense JSON (amount, category, date, etc.) via a Structured Output Parser, so the shape is always consistent.\n\n⚙️ Needs: Groq API credential\n(free key: console.groq.com/keys)",
+        "height": 260,
+        "width": 320,
+        "color": 5
+      },
+      "id": "sticky-2",
+      "name": "Sticky Note - AI",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-1150, 40]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert financial data-extraction assistant. Read the email below and extract the expense details.\n\nEmail Subject: {{ $json.headers.subject }}\nEmail Received Date: {{ $json.headers.date }}\nEmail Body:\n{{ $json.textPlain }}\n\nRules:\n- amount: the numeric expense amount only (no currency symbol, no commas, no text).\n- currency: 3-letter code if identifiable. If the email uses \"Rs.\" or \"Rupees\", use \"PKR\". Default to \"PKR\" if unclear.\n- category: classify into exactly one of: Food & Dining, Transport, Shopping, Bills & Utilities, Groceries, Entertainment, Health, Travel, Education, Other.\n- description: a short (max 8 words) plain-English summary of what the expense was for.\n- merchant: the shop/vendor/place name if mentioned, else \"Unknown\".\n- payment_method: e.g. Easypaisa, JazzCash, Credit Card, Debit Card, Cash, Bank Transfer. If not mentioned, \"Unknown\".\n- expense_date: the calendar date the expense actually happened, formatted YYYY-MM-DD. Resolve relative words like \"today\" or \"yesterday\" using the Email Received Date above as the reference point.\n\nIf a field truly cannot be determined, use null for amount and \"Unknown\" for text fields. Respond with the structured fields only — no commentary.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "basic-llm-chain-1",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [-1150, 320]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {
+          "temperature": 0
+        }
+      },
+      "id": "groq-chat-model-1",
+      "name": "Groq Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [-1180, 580],
+      "credentials": {
+        "groqApi": {
+          "id": "REPLACE_ME",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"amount\": 850,\n  \"currency\": \"PKR\",\n  \"category\": \"Food & Dining\",\n  \"description\": \"Dinner at a restaurant\",\n  \"merchant\": \"Restaurant\",\n  \"payment_method\": \"Easypaisa\",\n  \"expense_date\": \"2026-09-24\"\n}"
+      },
+      "id": "structured-output-parser-1",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [-950, 580]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "a1", "name": "amount", "type": "number", "value": "={{ $json.output.amount }}" },
+            { "id": "a2", "name": "currency", "type": "string", "value": "={{ $json.output.currency }}" },
+            { "id": "a3", "name": "category", "type": "string", "value": "={{ $json.output.category }}" },
+            { "id": "a4", "name": "description", "type": "string", "value": "={{ $json.output.description }}" },
+            { "id": "a5", "name": "merchant", "type": "string", "value": "={{ $json.output.merchant }}" },
+            { "id": "a6", "name": "payment_method", "type": "string", "value": "={{ $json.output.payment_method }}" },
+            { "id": "a7", "name": "expense_date", "type": "string", "value": "={{ $json.output.expense_date }}" },
+            { "id": "a8", "name": "email_from", "type": "string", "value": "={{ $('Gmail Trigger').item.json.headers.from }}" },
+            { "id": "a9", "name": "email_subject", "type": "string", "value": "={{ $('Gmail Trigger').item.json.headers.subject }}" },
+            { "id": "a10", "name": "raw_email_body", "type": "string", "value": "={{ $('Gmail Trigger').item.json.textPlain }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "prepare-for-supabase-1",
+      "name": "Prepare for Supabase",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [-900, 320]
+    },
+    {
+      "parameters": {
+        "content": "## STEP 3 — Save + Fetch\nInserts the parsed expense into the Supabase \"expenses\" table, then reads back ALL rows so the report can total everything.\n\n⚙️ Needs: Supabase credential\n(Project URL + service_role key)",
+        "height": 240,
+        "width": 300,
+        "color": 6
+      },
+      "id": "sticky-3",
+      "name": "Sticky Note - Supabase",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-680, 40]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "create",
+        "tableId": "expenses",
+        "dataToSend": "defineBelow",
+        "fieldsUi": {
+          "fieldValues": [
+            { "fieldId": "amount", "fieldValue": "={{ $json.amount }}" },
+            { "fieldId": "currency", "fieldValue": "={{ $json.currency }}" },
+            { "fieldId": "category", "fieldValue": "={{ $json.category }}" },
+            { "fieldId": "description", "fieldValue": "={{ $json.description }}" },
+            { "fieldId": "merchant", "fieldValue": "={{ $json.merchant }}" },
+            { "fieldId": "payment_method", "fieldValue": "={{ $json.payment_method }}" },
+            { "fieldId": "expense_date", "fieldValue": "={{ $json.expense_date }}" },
+            { "fieldId": "email_from", "fieldValue": "={{ $json.email_from }}" },
+            { "fieldId": "email_subject", "fieldValue": "={{ $json.email_subject }}" },
+            { "fieldId": "raw_email_body", "fieldValue": "={{ $json.raw_email_body }}" }
+          ]
+        }
+      },
+      "id": "supabase-insert-1",
+      "name": "Supabase - Insert Expense",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [-680, 320],
+      "credentials": {
+        "supabaseApi": {
+          "id": "REPLACE_ME",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "getAll",
+        "tableId": "expenses",
+        "returnAll": true
+      },
+      "id": "supabase-getall-1",
+      "name": "Supabase - Get All Expenses",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [-460, 320],
+      "credentials": {
+        "supabaseApi": {
+          "id": "REPLACE_ME",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## STEP 4 — Report Email\nBuilds an HTML summary (this new expense + all-time totals by category) and emails it to you.\n\n⚙️ Update \"sendTo\" in the last node with your own email address.",
+        "height": 220,
+        "width": 300,
+        "color": 3
+      },
+      "id": "sticky-4",
+      "name": "Sticky Note - Report",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-240, 40]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = items.map(i => i.json);\n\nconst newExpense = $('Supabase - Insert Expense').first().json;\n\nlet total = 0;\nconst byCategory = {};\n\nfor (const row of rows) {\n  const amt = Number(row.amount) || 0;\n  total += amt;\n  const cat = row.category || 'Other';\n  byCategory[cat] = (byCategory[cat] || 0) + amt;\n}\n\nconst categoryRows = Object.entries(byCategory)\n  .sort((a, b) => b[1] - a[1])\n  .map(([cat, amt]) => `<tr><td style=\"padding:6px 12px;border-bottom:1px solid #eee;\">${cat}</td><td style=\"padding:6px 12px;border-bottom:1px solid #eee;text-align:right;\">${amt.toFixed(2)}</td></tr>`)\n  .join('');\n\nconst currency = newExpense.currency || 'PKR';\nconst newAmount = Number(newExpense.amount) || 0;\n\nconst html = `\n<div style=\"font-family:Arial,sans-serif;max-width:600px;margin:auto;\">\n  <h2 style=\"color:#2c3e50;\">New Expense Recorded</h2>\n  <table style=\"width:100%;border-collapse:collapse;margin-bottom:24px;\">\n    <tr><td style=\"padding:6px 12px;\"><b>Amount</b></td><td style=\"padding:6px 12px;\">${currency} ${newAmount.toFixed(2)}</td></tr>\n    <tr><td style=\"padding:6px 12px;\"><b>Category</b></td><td style=\"padding:6px 12px;\">${newExpense.category}</td></tr>\n    <tr><td style=\"padding:6px 12px;\"><b>Description</b></td><td style=\"padding:6px 12px;\">${newExpense.description}</td></tr>\n    <tr><td style=\"padding:6px 12px;\"><b>Merchant</b></td><td style=\"padding:6px 12px;\">${newExpense.merchant}</td></tr>\n    <tr><td style=\"padding:6px 12px;\"><b>Payment Method</b></td><td style=\"padding:6px 12px;\">${newExpense.payment_method}</td></tr>\n    <tr><td style=\"padding:6px 12px;\"><b>Date</b></td><td style=\"padding:6px 12px;\">${newExpense.expense_date}</td></tr>\n  </table>\n\n  <h2 style=\"color:#2c3e50;\">Expense Summary (All Time)</h2>\n  <p><b>Total Spent:</b> ${currency} ${total.toFixed(2)} &nbsp;|&nbsp; <b>Total Entries:</b> ${rows.length}</p>\n  <table style=\"width:100%;border-collapse:collapse;\">\n    <tr style=\"background:#f5f5f5;\"><th style=\"padding:6px 12px;text-align:left;\">Category</th><th style=\"padding:6px 12px;text-align:right;\">Total</th></tr>\n    ${categoryRows}\n  </table>\n  <p style=\"color:#888;font-size:12px;margin-top:20px;\">Automated report from your Expense Tracker workflow.</p>\n</div>\n`;\n\nreturn [{\n  json: {\n    subject: `Expense Report - New: ${currency} ${newAmount.toFixed(2)} on ${newExpense.category}`,\n    html\n  }\n}];"
+      },
+      "id": "build-report-1",
+      "name": "Build Report Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-240, 320]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "your-email@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "gmail-send-1",
+      "name": "Gmail - Send Report",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [-20, 320],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          { "node": "Basic LLM Chain", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          { "node": "Basic LLM Chain", "type": "ai_languageModel", "index": 0 }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          { "node": "Basic LLM Chain", "type": "ai_outputParser", "index": 0 }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          { "node": "Prepare for Supabase", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Prepare for Supabase": {
+      "main": [
+        [
+          { "node": "Supabase - Insert Expense", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Supabase - Insert Expense": {
+      "main": [
+        [
+          { "node": "Supabase - Get All Expenses", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Supabase - Get All Expenses": {
+      "main": [
+        [
+          { "node": "Build Report Email", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Build Report Email": {
+      "main": [
+        [
+          { "node": "Gmail - Send Report", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
