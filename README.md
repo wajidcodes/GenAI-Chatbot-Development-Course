@@ -17,6 +17,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 09      | n8n Email Attachment & Data Automation Revision | Completed |
 | 10      | PostgreSQL Database Fundamentals | Completed |
 | 11      | Supabase, n8n & AI Expense Tracker | Completed |
+| 12      | Agentic AI, Pinecone & RAG | Completed |
 
 ## Repository Structure
 
@@ -78,6 +79,13 @@ GenAI-Chatbot-Development-Course/
 │   ├── task.md
 │   ├── screenshots/
 │   └── workflows/
+├── 12-Agentic-AI-Pinecone-RAG/
+│   ├── README.md
+│   ├── notes.md
+│   ├── task.md
+│   ├── resources/
+│   ├── screenshots/
+│   └── workflows/
 ├── Projects/
 └── Resources/
 ```
@@ -97,6 +105,7 @@ GenAI-Chatbot-Development-Course/
 | [09-n8n-Email-Attachment-Revision](09-n8n-Email-Attachment-Revision/README.md) | Revision of attachment-based n8n automation |
 | [10-PostgreSQL-Database-Fundamentals](10-PostgreSQL-Database-Fundamentals/README.md) | Database fundamentals, PostgreSQL, Neon, and a To-Do list |
 | [11-Supabase-n8n-AI-Expense-Tracker](11-Supabase-n8n-AI-Expense-Tracker/README.md) | Supabase, AI-generated n8n workflows, and an email expense tracker |
+| [12-Agentic-AI-Pinecone-RAG](12-Agentic-AI-Pinecone-RAG/README.md) | Agentic AI, tokens, Pinecone vector search, and document Q&A |
 
 ## Technologies Covered So Far
 
@@ -110,10 +119,13 @@ GenAI-Chatbot-Development-Course/
 - Neon
 - Supabase
 - Groq
+- Pinecone
+- OpenAI embeddings
+- RAG (Retrieval-Augmented Generation)
 
 ## Learning Progress
 
-The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, and Supabase-based AI automation. These topics build the foundation for practical chatbot and GenAI applications.
+The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, Supabase-based AI automation, and document-grounded RAG with Pinecone. These topics build the foundation for practical chatbot and GenAI applications.
 
 ## Future Topics
 

@@ -1,0 +1,725 @@
+{
+  "name": "RAG 1 - Document Ingestion (Gmail to Pinecone)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Workflow 1 - Document Ingestion\nGmail (attachments) -> split attachments -> extract text -> chunk -> OpenAI text-embedding-3-large (3072) -> Pinecone index `n8n-document-rag`, namespace `documents`.\n\nSupported: PDF, TXT, DOCX. Other file types are skipped.\nSetup: Gmail OAuth2, OpenAI API, Pinecone API credentials. Create the Pinecone index first (dimension 3072, cosine).",
+        "height": 260,
+        "width": 520,
+        "color": 5
+      },
+      "id": "sticky-1",
+      "name": "Note - Overview",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1500,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {
+          "q": "has:attachment",
+          "readStatus": "unread"
+        },
+        "options": {
+          "downloadAttachments": true,
+          "attachmentPrefix": "attachment_"
+        }
+      },
+      "id": "w1-trigger",
+      "name": "Gmail Trigger (Documents)",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1500,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\nconst allowed = ['pdf', 'txt', 'docx'];\nfor (const item of $input.all()) {\n  const j = item.json || {};\n  const headers = j.headers || {};\n  const fromRaw = headers.from || j.From || '';\n  const m = String(fromRaw).match(/<([^>]+)>/);\n  const sender = (m ? m[1] : String(fromRaw)).trim();\n  const subject = headers.subject || j.Subject || '';\n  const keys = Object.keys(item.binary || {});\n  keys.forEach((key, idx) => {\n    const bin = item.binary[key];\n    const fileName = bin.fileName || key;\n    const ext = (fileName.split('.').pop() || '').toLowerCase();\n    if (!allowed.includes(ext)) { return; } // unsupported type: skipped\n    out.push({\n      json: {\n        message_id: j.id,\n        thread_id: j.threadId,\n        sender_email: sender,\n        email_subject: subject,\n        filename: fileName,\n        extension: ext,\n        content_type: bin.mimeType || '',\n        attachment_id: j.id + '_' + idx,\n        document_id: j.id + '_' + fileName,\n        upload_timestamp: new Date().toISOString()\n      },\n      binary: { data: bin }\n    });\n  });\n}\nreturn out;"
+      },
+      "id": "w1-split",
+      "name": "Split Attachments",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.document_id }}",
+        "options": {}
+      },
+      "id": "w1-dedupe",
+      "name": "Skip Already Processed",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "r-pdf",
+                    "leftValue": "={{ $json.extension }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PDF"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "r-txt",
+                    "leftValue": "={{ $json.extension }}",
+                    "rightValue": "txt",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TXT"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "r-docx",
+                    "leftValue": "={{ $json.extension }}",
+                    "rightValue": "docx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DOCX"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "w1-switch",
+      "name": "Route by File Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -820,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "data",
+        "options": {}
+      },
+      "id": "w1-pdf",
+      "name": "Extract Text - PDF",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -580,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "data",
+        "options": {}
+      },
+      "id": "w1-txt",
+      "name": "Extract Text - TXT",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -580,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "n0",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.text || $json.data }}"
+            },
+            {
+              "id": "n1",
+              "name": "filename",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.filename }}"
+            },
+            {
+              "id": "n2",
+              "name": "sender_email",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.sender_email }}"
+            },
+            {
+              "id": "n3",
+              "name": "email_subject",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.email_subject }}"
+            },
+            {
+              "id": "n4",
+              "name": "document_id",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.document_id }}"
+            },
+            {
+              "id": "n5",
+              "name": "attachment_id",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.attachment_id }}"
+            },
+            {
+              "id": "n6",
+              "name": "upload_timestamp",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.upload_timestamp }}"
+            },
+            {
+              "id": "n7",
+              "name": "content_type",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.content_type }}"
+            },
+            {
+              "id": "n8",
+              "name": "message_id",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.message_id }}"
+            },
+            {
+              "id": "n9",
+              "name": "thread_id",
+              "type": "string",
+              "value": "={{ $('Split Attachments').item.json.thread_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "w1-norm",
+      "name": "Prepare Text + Metadata",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -360,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-document-rag",
+          "mode": "id"
+        },
+        "options": {
+          "pineconeNamespace": "documents"
+        }
+      },
+      "id": "w1-pine-text",
+      "name": "Pinecone Insert (PDF/TXT)",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        240
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "REPLACE_ME",
+          "name": "Pinecone API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "textSplittingMode": "custom",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "filename",
+                "value": "={{ $json.filename }}"
+              },
+              {
+                "name": "sender_email",
+                "value": "={{ $json.sender_email }}"
+              },
+              {
+                "name": "email_subject",
+                "value": "={{ $json.email_subject }}"
+              },
+              {
+                "name": "document_id",
+                "value": "={{ $json.document_id }}"
+              },
+              {
+                "name": "attachment_id",
+                "value": "={{ $json.attachment_id }}"
+              },
+              {
+                "name": "upload_timestamp",
+                "value": "={{ $json.upload_timestamp }}"
+              },
+              {
+                "name": "content_type",
+                "value": "={{ $json.content_type }}"
+              },
+              {
+                "name": "message_id",
+                "value": "={{ $json.message_id }}"
+              }
+            ]
+          }
+        },
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.text }}"
+      },
+      "id": "w1-loader-text",
+      "name": "Data Loader (Text)",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "chunkSize": 1000,
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "id": "w1-split-text",
+      "name": "Recursive Splitter (Text)",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 3072
+        }
+      },
+      "id": "w1-emb-text",
+      "name": "OpenAI Embeddings (Text)",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        460
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_ME",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n-document-rag",
+          "mode": "id"
+        },
+        "options": {
+          "pineconeNamespace": "documents"
+        }
+      },
+      "id": "w1-pine-docx",
+      "name": "Pinecone Insert (DOCX)",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        880
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "REPLACE_ME",
+          "name": "Pinecone API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "textSplittingMode": "custom",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "filename",
+                "value": "={{ $json.filename }}"
+              },
+              {
+                "name": "sender_email",
+                "value": "={{ $json.sender_email }}"
+              },
+              {
+                "name": "email_subject",
+                "value": "={{ $json.email_subject }}"
+              },
+              {
+                "name": "document_id",
+                "value": "={{ $json.document_id }}"
+              },
+              {
+                "name": "attachment_id",
+                "value": "={{ $json.attachment_id }}"
+              },
+              {
+                "name": "upload_timestamp",
+                "value": "={{ $json.upload_timestamp }}"
+              },
+              {
+                "name": "content_type",
+                "value": "={{ $json.content_type }}"
+              },
+              {
+                "name": "message_id",
+                "value": "={{ $json.message_id }}"
+              }
+            ]
+          }
+        },
+        "dataType": "binary",
+        "binaryDataKey": "data",
+        "loader": "docxLoader"
+      },
+      "id": "w1-loader-docx",
+      "name": "Data Loader (DOCX)",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -60,
+        1100
+      ]
+    },
+    {
+      "parameters": {
+        "chunkSize": 1000,
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "id": "w1-split-docx",
+      "name": "Recursive Splitter (DOCX)",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "dimensions": 3072
+        }
+      },
+      "id": "w1-emb-docx",
+      "name": "OpenAI Embeddings (DOCX)",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        1100
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_ME",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "reply",
+        "messageId": "={{ $('Split Attachments').first().json.message_id }}",
+        "emailType": "text",
+        "message": "={{ 'Your document(s) were indexed and are ready for questions: ' + $('Split Attachments').all().map(i => i.json.filename).join(', ') }}",
+        "options": {}
+      },
+      "id": "w1-confirm",
+      "name": "Gmail - Confirm Ingestion",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        160,
+        560
+      ],
+      "executeOnce": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail OAuth2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Gmail Trigger (Documents)": {
+      "main": [
+        [
+          {
+            "node": "Split Attachments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Attachments": {
+      "main": [
+        [
+          {
+            "node": "Skip Already Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Skip Already Processed": {
+      "main": [
+        [
+          {
+            "node": "Route by File Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by File Type": {
+      "main": [
+        [
+          {
+            "node": "Extract Text - PDF",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract Text - TXT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Pinecone Insert (DOCX)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text - PDF": {
+      "main": [
+        [
+          {
+            "node": "Prepare Text + Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Text - TXT": {
+      "main": [
+        [
+          {
+            "node": "Prepare Text + Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Text + Metadata": {
+      "main": [
+        [
+          {
+            "node": "Pinecone Insert (PDF/TXT)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Insert (PDF/TXT)": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Confirm Ingestion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Insert (DOCX)": {
+      "main": [
+        [
+          {
+            "node": "Gmail - Confirm Ingestion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Loader (Text)": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Insert (PDF/TXT)",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Splitter (Text)": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Data Loader (Text)",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Embeddings (Text)": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Insert (PDF/TXT)",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Data Loader (DOCX)": {
+      "ai_document": [
+        [
+          {
+            "node": "Pinecone Insert (DOCX)",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Splitter (DOCX)": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Data Loader (DOCX)",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Embeddings (DOCX)": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Insert (DOCX)",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
