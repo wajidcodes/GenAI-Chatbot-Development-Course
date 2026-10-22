@@ -19,6 +19,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 11      | Supabase, n8n & AI Expense Tracker | Completed |
 | 12      | Agentic AI, Pinecone & RAG | Completed |
 | 13      | Apify & Job Discovery Automation | Completed |
+| 14      | AI Innovations, Agents & AGI | Completed |
 
 ## Repository Structure
 
@@ -91,6 +92,13 @@ GenAI-Chatbot-Development-Course/
 │   ├── README.md
 │   ├── notes.md
 │   └── task.md
+├── 14-AI-Innovations-Agents-and-AGI/
+│   ├── README.md
+│   ├── notes.md
+│   └── Assignments/
+│       ├── RN_882016_Assignment#01.pdf
+│       ├── agent.py
+│       └── workflows/
 ├── Projects/
 └── Resources/
 ```
@@ -112,6 +120,7 @@ GenAI-Chatbot-Development-Course/
 | [11-Supabase-n8n-AI-Expense-Tracker](11-Supabase-n8n-AI-Expense-Tracker/README.md) | Supabase, AI-generated n8n workflows, and an email expense tracker |
 | [12-Agentic-AI-Pinecone-RAG](12-Agentic-AI-Pinecone-RAG/README.md) | Agentic AI, tokens, Pinecone vector search, and document Q&A |
 | [13-Apify-LinkedIn-Job-Discovery](13-Apify-LinkedIn-Job-Discovery/README.md) | Apify and a human-reviewed n8n job discovery workflow |
+| [14-AI-Innovations-Agents-and-AGI](14-AI-Innovations-Agents-and-AGI/README.md) | AI innovations, agents, Muse, AGI, and the JobPilot AI assignment |
 
 ## Technologies Covered So Far
 
@@ -128,6 +137,7 @@ GenAI-Chatbot-Development-Course/
 - Pinecone
 - OpenAI embeddings
 - Apify
+- AI agents and AGI
 - RAG (Retrieval-Augmented Generation)
 
 ## Learning Progress
