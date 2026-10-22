@@ -18,6 +18,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 10      | PostgreSQL Database Fundamentals | Completed |
 | 11      | Supabase, n8n & AI Expense Tracker | Completed |
 | 12      | Agentic AI, Pinecone & RAG | Completed |
+| 13      | Apify & Job Discovery Automation | Completed |
 
 ## Repository Structure
 
@@ -86,6 +87,10 @@ GenAI-Chatbot-Development-Course/
 │   ├── resources/
 │   ├── screenshots/
 │   └── workflows/
+├── 13-Apify-LinkedIn-Job-Discovery/
+│   ├── README.md
+│   ├── notes.md
+│   └── task.md
 ├── Projects/
 └── Resources/
 ```
@@ -106,6 +111,7 @@ GenAI-Chatbot-Development-Course/
 | [10-PostgreSQL-Database-Fundamentals](10-PostgreSQL-Database-Fundamentals/README.md) | Database fundamentals, PostgreSQL, Neon, and a To-Do list |
 | [11-Supabase-n8n-AI-Expense-Tracker](11-Supabase-n8n-AI-Expense-Tracker/README.md) | Supabase, AI-generated n8n workflows, and an email expense tracker |
 | [12-Agentic-AI-Pinecone-RAG](12-Agentic-AI-Pinecone-RAG/README.md) | Agentic AI, tokens, Pinecone vector search, and document Q&A |
+| [13-Apify-LinkedIn-Job-Discovery](13-Apify-LinkedIn-Job-Discovery/README.md) | Apify and a human-reviewed n8n job discovery workflow |
 
 ## Technologies Covered So Far
 
@@ -121,6 +127,7 @@ GenAI-Chatbot-Development-Course/
 - Groq
 - Pinecone
 - OpenAI embeddings
+- Apify
 - RAG (Retrieval-Augmented Generation)
 
 ## Learning Progress
