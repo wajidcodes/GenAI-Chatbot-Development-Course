@@ -11,8 +11,8 @@ This folder contains the assignment details shown in the supplied course screens
 | [submission-draft.md](submission-draft.md) | Complete editable Markdown draft |
 | [submission-draft.txt](submission-draft.txt) | Plain-text version for copying into an assignment portal |
 | [agent.py](agent.py) | JobPilot AI agent: collects sample or supplied data, scores job fit, prepares materials, and requires per-email approval before sending |
-| [workflows/linkedin-outreach-workflow-dry-run.json](workflows/linkedin-outreach-workflow-dry-run.json) | Latest n8n workflow export; its dry-run behavior avoids treating a missing contact address as a real recipient |
-| [workflows/linkedin-outreach-workflow-original.json](workflows/linkedin-outreach-workflow-original.json) | Original n8n workflow export retained for comparison |
+| [Tasks/linkedin-outreach-workflow-dry-run.json](../../Tasks/linkedin-outreach-workflow-dry-run.json) | Latest n8n workflow export; its dry-run behavior avoids treating a missing contact address as a real recipient |
+| [Tasks/linkedin-outreach-workflow-original.json](../../Tasks/linkedin-outreach-workflow-original.json) | Original n8n workflow export retained for comparison |
 
 ## How the Materials Relate
 

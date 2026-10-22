@@ -23,7 +23,7 @@ This lecture explores developments in AI, newer models and agents, the Muse agen
 | [Assignments/submission-draft.md](Assignments/submission-draft.md) | Editable proposed submission draft |
 | [Assignments/submission-draft.txt](Assignments/submission-draft.txt) | Plain-text copy of the draft for use in submission forms |
 | [Assignments/agent.py](Assignments/agent.py) | JobPilot AI agent supporting the assignment concept |
-| [Assignments/workflows/](Assignments/workflows/) | Original and dry-run n8n LinkedIn outreach workflow exports |
+| [Tasks/](../Tasks/) | Original and dry-run n8n LinkedIn outreach workflow exports supporting the assignment |
 
 ## Learning Outcome
 

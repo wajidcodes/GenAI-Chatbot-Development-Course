@@ -99,6 +99,8 @@ GenAI-Chatbot-Development-Course/
 │       ├── RN_882016_Assignment#01.pdf
 │       ├── agent.py
 │       └── workflows/
+├── Tasks/
+│   └── LinkedIn outreach workflow exports
 ├── Projects/
 └── Resources/
 ```
