@@ -20,6 +20,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 12      | Agentic AI, Pinecone & RAG | Completed |
 | 13      | Apify & Job Discovery Automation | Completed |
 | 14      | AI Innovations, Agents & AGI | Completed |
+| 15      | Assignment Idea Presentations | Completed |
 
 ## Repository Structure
 
@@ -101,6 +102,10 @@ GenAI-Chatbot-Development-Course/
 │       └── workflows/
 ├── Tasks/
 │   └── LinkedIn outreach workflow exports
+├── 15-Assignment-Idea-Presentations/
+│   ├── README.md
+│   ├── notes.md
+│   └── task.md
 ├── Projects/
 └── Resources/
 ```
@@ -123,6 +128,7 @@ GenAI-Chatbot-Development-Course/
 | [12-Agentic-AI-Pinecone-RAG](12-Agentic-AI-Pinecone-RAG/README.md) | Agentic AI, tokens, Pinecone vector search, and document Q&A |
 | [13-Apify-LinkedIn-Job-Discovery](13-Apify-LinkedIn-Job-Discovery/README.md) | Apify and a human-reviewed n8n job discovery workflow |
 | [14-AI-Innovations-Agents-and-AGI](14-AI-Innovations-Agents-and-AGI/README.md) | AI innovations, agents, Muse, AGI, and the JobPilot AI assignment |
+| [15-Assignment-Idea-Presentations](15-Assignment-Idea-Presentations/README.md) | Presentation of the JobPilot AI assignment idea |
 
 ## Technologies Covered So Far
 
@@ -144,7 +150,7 @@ GenAI-Chatbot-Development-Course/
 
 ## Learning Progress
 
-The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, Supabase-based AI automation, and document-grounded RAG with Pinecone. These topics build the foundation for practical chatbot and GenAI applications.
+The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, Supabase-based AI automation, agent-based workflows, and document-grounded RAG with Pinecone. Lecture 15 focused on communicating a practical AI-agent business idea through class presentations.
 
 ## Future Topics
 
