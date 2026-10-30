@@ -21,6 +21,7 @@ This repository contains my learning journey, lecture notes, exercises, and prac
 | 13      | Apify & Job Discovery Automation | Completed |
 | 14      | AI Innovations, Agents & AGI | Completed |
 | 15      | Assignment Idea Presentations | Completed |
+| 16      | Programming Fundamentals & Streamlit | Completed |
 
 ## Repository Structure
 
@@ -106,6 +107,10 @@ GenAI-Chatbot-Development-Course/
 │   ├── README.md
 │   ├── notes.md
 │   └── task.md
+├── 16-Programming-Fundamentals-and-Streamlit/
+│   ├── README.md
+│   ├── notes.md
+│   └── task.md
 ├── Projects/
 └── Resources/
 ```
@@ -129,6 +134,7 @@ GenAI-Chatbot-Development-Course/
 | [13-Apify-LinkedIn-Job-Discovery](13-Apify-LinkedIn-Job-Discovery/README.md) | Apify and a human-reviewed n8n job discovery workflow |
 | [14-AI-Innovations-Agents-and-AGI](14-AI-Innovations-Agents-and-AGI/README.md) | AI innovations, agents, Muse, AGI, and the JobPilot AI assignment |
 | [15-Assignment-Idea-Presentations](15-Assignment-Idea-Presentations/README.md) | Presentation of the JobPilot AI assignment idea |
+| [16-Programming-Fundamentals-and-Streamlit](16-Programming-Fundamentals-and-Streamlit/README.md) | Python fundamentals, functions, and Streamlit |
 
 ## Technologies Covered So Far
 
@@ -147,10 +153,12 @@ GenAI-Chatbot-Development-Course/
 - Apify
 - AI agents and AGI
 - RAG (Retrieval-Augmented Generation)
+- Python programming fundamentals
+- Streamlit
 
 ## Learning Progress
 
-The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, Supabase-based AI automation, agent-based workflows, and document-grounded RAG with Pinecone. Lecture 15 focused on communicating a practical AI-agent business idea through class presentations.
+The course began with web development fundamentals — HTML structure, additional HTML elements, CSS styling, and Flexbox layout. It then moved into Node.js, n8n, LLM-based email automation, attachment processing, PostgreSQL databases using Neon, Supabase-based AI automation, agent-based workflows, and document-grounded RAG with Pinecone. The latest lectures connect these ideas with Python programming fundamentals and Streamlit interfaces for building practical chatbot and GenAI applications.
 
 ## Future Topics
 
