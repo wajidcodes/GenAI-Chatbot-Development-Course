@@ -97,7 +97,7 @@ GenAI-Chatbot-Development-Course/
 ├── 14-AI-Innovations-Agents-and-AGI/
 │   ├── README.md
 │   ├── notes.md
-│   └── Assignments/
+│   ├── Assignments/
 │       ├── RN_882016_Assignment#01.pdf
 │       ├── agent.py
 │       └── workflows/
@@ -163,3 +163,9 @@ The course began with web development fundamentals — HTML structure, additiona
 ## Future Topics
 
 Future lectures and projects will be added as the course progresses.
+
+---
+
+## Author
+
+Wajid Ali — [Portfolio](https://wajidali-portfolio.vercel.app) · [GitHub](https://github.com/wajidcodes)
