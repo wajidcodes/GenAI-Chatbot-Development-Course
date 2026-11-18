@@ -59,6 +59,7 @@ GenAI-Chatbot-Development-Course/
 │   └── notes.md
 ├── 06-LLM-Chatbot-Automation/
 │   ├── installation.md
+│   ├── lecture-6-drawai.jpeg
 │   ├── notes.md
 │   ├── screenshots/
 │   └── Process-Video/
@@ -66,9 +67,7 @@ GenAI-Chatbot-Development-Course/
 │   └── notes.md
 ├── 08-n8n-Email-Attachment-Automation/
 │   ├── notes.md
-│   ├── task.md
-│   ├── screenshots/
-│   └── video/
+│   └── task.md
 ├── 09-n8n-Email-Attachment-Revision/
 │   ├── README.md
 │   ├── notes.md
@@ -98,9 +97,12 @@ GenAI-Chatbot-Development-Course/
 │   ├── README.md
 │   ├── notes.md
 │   └── Assignments/
+│       ├── README.md
 │       ├── RN_882016_Assignment#01.pdf
 │       ├── agent.py
-│       └── workflows/
+│       ├── assignment-question.md
+│       ├── submission-draft.md
+│       └── submission-draft.txt
 ├── 15-Assignment-Idea-Presentations/
 │   ├── README.md
 │   ├── notes.md
