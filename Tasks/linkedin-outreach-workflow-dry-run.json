@@ -81,7 +81,7 @@
               "id": "a5",
               "name": "apify_actor_id",
               "type": "string",
-              "value": "osamih~linkedin-jobs-scraper"
+              "value": "johnvc~linkedin-jobs-api"
             },
             {
               "id": "a6",
@@ -153,7 +153,7 @@
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ title: $json.title, location: $json.location, rows: Number($json.rows) }) }}",
+        "jsonBody": "={{ JSON.stringify({ keyword: $json.title, location: $json.location, maxJobs: Number($json.rows) }) }}",
         "options": {
           "timeout": 300000
         }
